@@ -14,7 +14,8 @@
   --text: #8A92BA;
   --highlight: #00B4ED;
 
-  --surface-1--70: #171920B3;
+  --surface-1-70: #171920B3;
+  --surface-1-30: #1719204D;
 
   font-size: 62.5%;
   background-color: var(--mantle);
@@ -28,9 +29,11 @@ body {
 }
 
 form {
-  background-color: var(--surface-1--70);
   border-radius: 1rem;
-  border: solid 0.1rem var(--highlight);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: solid 0.1rem var(--surface-2);
+  box-shadow: 0 8px 32px 0 var(--surface-1-30);
 }
 
 input {
@@ -63,6 +66,10 @@ input[type="file"] {
   display: none
 }
 
+form input {
+  width: 95%;
+}
+
 .custom-file-input {
   cursor: pointer;
   background-color: var(--surface-2);
@@ -77,6 +84,19 @@ input[type="file"] {
 button:hover {
   transform: scale(1.1);
   color: var(--highlight);
+}
+
+a {
+  all: unset;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: .5s;
+  font-size: 2rem;
+}
+
+a:hover {
+  color: var(--highlight);
+  transform: scale(1.1);
 }
 
 @keyframes grow-up {

@@ -5,6 +5,7 @@ import playIcon from '../public/icons/play.svg'
 import pauseIcon from '../public/icons/pause.svg'
 import nextIcon from '../public/icons/next.svg'
 import prevIcon from '../public/icons/prev.svg'
+import VanillaTilt from 'vanilla-tilt';
 
 type PlayerProps = {
   music: File | undefined
@@ -17,15 +18,17 @@ type PlayerProps = {
 
 const Container = styled.div`
   display: flex;
+  border: solid 0.1rem var(--surface-2);
+  box-shadow: 0 8px 32px 0 var(--surface-1-70);
   flex-direction: column;
   align-items: center;
   gap: 2.5rem;
-  border: solid 0.1rem var(--highlight);
   padding: 4rem;
   border-radius: 1rem;
-  background-color: var(--surface-1--70);
-  height: 40rem;
-  width: 40rem;
+  height: 30rem;
+  width: 30rem;
+  backdrop-filter: blur( 12px );
+  -webkit-backdrop-filter: blur( 12px );
   .infos{
     display: flex;
     flex-direction: column;
@@ -88,15 +91,27 @@ const Player = (props: PlayerProps) => {
     musicPlayer.current?.addEventListener('ended', () => {
       setIsPlaying(false)
     })
+    const tilt = document.querySelector('.tilt');
+    if (tilt) {
+      VanillaTilt.init(tilt as HTMLElement, {
+        max: 25,
+        speed: 100,
+        glare: true,
+        "max-glare": 0.06,
+        scale: 1.2,
+
+      })
+    }
+
   }, [])
 
   return (
-    <Container>
+    <Container className='tilt'>
       <div className='infos'>
         <h2>{props.title}</h2>
         <p>({props.bpm} BPM) - {props.style} (Key: {props.keyValue}) </p>
       </div>
-      {props.cover && <Image className='cover' src={URL.createObjectURL(props.cover)} alt='music cover' width={200} height={200} />}
+      {props.cover && <Image className='cover' src={URL.createObjectURL(props.cover)} alt='music cover' width={100} height={100} />}
       {props.music && (
         <>
           <audio ref={musicPlayer}>

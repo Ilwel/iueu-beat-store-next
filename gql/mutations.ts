@@ -6,6 +6,23 @@ const ADD_MUSIC = gql`
   }
 `
 
+const SIGN_IN = gql`
+mutation SignIn($data: SignInInputData!) {
+  signIn(data: $data) {
+    token
+    user {
+      id
+      instagram
+      isAdmin
+      spotifyLink
+      username
+      youtubeLink
+    }
+  }
+}
+`
+
 export {
-  ADD_MUSIC
+  ADD_MUSIC,
+  SIGN_IN
 }
